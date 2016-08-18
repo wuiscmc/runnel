@@ -1,0 +1,9 @@
+<%= for x <- @data[:summaries] do %>
+  <ul>
+    <%= for {"records",v} <- x do %>
+      <%= for record <- v do %>
+        <li><%= record["recordType"]%>: <%= record["recordValue"]%></li>
+      <% end %>
+    <% end %>
+  </ul>
+<% end %>
