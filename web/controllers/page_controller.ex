@@ -22,6 +22,7 @@ defmodule Runnel.PageController do
         |> redirect to: "/see_stuff"
       {:error, _} ->
         conn
+        |> put_flash(:error, "couldnt login")
         |> redirect to: "/"
     end
   end
@@ -38,8 +39,8 @@ defmodule Runnel.PageController do
     login_endpoint = "https://developer.nike.com/services/login"
 
     case HTTPoison.post(login_endpoint, {:form, [ username: username, password: password ]}) do
-      {:ok, response} -> {:ok, extract_token(response.body)}
-      _ -> { :error, "coudnt login"}
+      {:ok, response} -> extract_token(response.body)
+      {:error, _} -> { :error, "coudnt login"}
     end
   end
 
@@ -47,7 +48,8 @@ defmodule Runnel.PageController do
     response
     |> Poison.decode!
     |> Enum.find_value(fn
-      ({"access_token", v}) -> to_string(v)
+      ({"access_token", v}) -> { :ok, to_string(v) }
+      ({_,_}) -> {:error, "couldnt login"}
     end)
   end
 
@@ -55,7 +57,7 @@ defmodule Runnel.PageController do
     if is_binary(conn.cookies["access_token"]) do
       conn
     else
-      conn |>  redirect(to: "/") |> halt
+      conn |> put_flash(:info, "needs to login") |> redirect(to: "/") |> halt
     end
   end
 end
