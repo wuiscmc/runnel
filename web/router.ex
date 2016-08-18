@@ -18,6 +18,8 @@ defmodule Runnel.Router do
 
     get "/", PageController, :index
     get "/main", PageController, :main
+    post "/create_session", PageController, :create_session
+    get "/see_stuff", PageController, :see_stuff
   end
 
   # Other scopes may use custom stacks.

@@ -1,25 +1,61 @@
 defmodule Runnel.PageController do
   use Runnel.Web, :controller
+  require IEx
+
+  plug :valid_token when action in [:see_stuff]
 
   def index(conn, _params) do
-    token = login(conn.cookies["access_token"])
-    data = Runnel.Integrations.NikeRuns.fetch(token)
-
-    conn
-    |> put_resp_cookie("access_token", token, max_age: 3500)
-    |> assign(:data, data)
-    |> render("index.html")
+    if conn.cookies["access_token"] do
+      conn
+      |> redirect to: "/see_stuff"
+    else
+      conn
+      |> render("index.html")
+    end
   end
 
-  defp login(_)  do
-    HTTPoison.post!("https://developer.nike.com/services/login", {:form, [username: "u", password: "b"]}).body 
+  def create_session(conn, %{"nike_session" => %{"username" => username, "password" => password}}) do
+    case login(username, password) do
+      {:ok, token} ->
+        conn
+        |> put_resp_cookie("access_token", token, max_age: 3500)
+        |> redirect to: "/see_stuff"
+      {:error, _} ->
+        conn
+        |> redirect to: "/"
+    end
+  end
+
+  def see_stuff(conn, _params) do
+    data = Runnel.Integrations.NikeRuns.fetch(conn.cookies["access_token"])
+
+    conn
+    |> assign(:data, data)
+    |> render("see_stuff.html")
+  end
+
+  defp login(username, password)  do
+    login_endpoint = "https://developer.nike.com/services/login"
+
+    case HTTPoison.post(login_endpoint, {:form, [ username: username, password: password ]}) do
+      {:ok, response} -> {:ok, extract_token(response.body)}
+      _ -> { :error, "coudnt login"}
+    end
+  end
+
+  defp extract_token(response) do
+    response
     |> Poison.decode!
     |> Enum.find_value(fn
-       ({"access_token", v}) -> to_string(v)
+      ({"access_token", v}) -> to_string(v)
     end)
   end
 
-  defp login(token) when is_binary(token) do
-    token
+  defp valid_token(conn, _) do
+    if is_binary(conn.cookies["access_token"]) do
+      conn
+    else
+      conn |>  redirect(to: "/") |> halt
+    end
   end
 end

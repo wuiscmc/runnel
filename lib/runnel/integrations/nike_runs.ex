@@ -7,7 +7,7 @@ defmodule Runnel.Integrations.NikeRuns do
  end
 
  def fetch(access_token) do
-   get!("/me/sport/activities",
+   get!("/me/sport",
     [],
     [params: [
       access_token: access_token

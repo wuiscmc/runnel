@@ -1,9 +1,6 @@
-<%= for x <- @data[:summaries] do %>
-  <ul>
-    <%= for {"records",v} <- x do %>
-      <%= for record <- v do %>
-        <li><%= record["recordType"]%>: <%= record["recordValue"]%></li>
-      <% end %>
-    <% end %>
-  </ul>
+<%= form_for @conn, page_path(@conn, :create_session), [as: :nike_session], fn f -> %>
+  <%= text_input f, :username %>
+  <%= password_input f, :password %>
+  <%= submit "Login" %>
 <% end %>
+
