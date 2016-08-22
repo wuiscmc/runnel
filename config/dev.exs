@@ -41,3 +41,7 @@ config :runnel, Runnel.Repo,
   database: "runnel_dev",
   hostname: "localhost",
   pool_size: 10
+
+config :runnel, Runnel.Integrations.NikeRuns,
+  api_url: "localhost:4001"
+

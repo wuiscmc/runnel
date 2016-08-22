@@ -1,9 +1,12 @@
-<%= for x <- @data[:summaries] do %>
-  <ul>
-    <%= for {"records",v} <- x do %>
-      <%= for record <- v do %>
-        <li><%= record["recordType"]%>: <%= record["recordValue"]%></li>
-      <% end %>
-    <% end %>
-  </ul>
+<div class="container">
+<%= for activity <- @data[:data] do %>
+  <div class="row">
+    <h3>Run on <%= activity["startTime"] %></h3>
+    <ul>
+      <li><%= activity["metricSummary"]["duration"] %></li>
+      <li><%= activity["metricSummary"]["distance"] %> km </li>
+      <li><%= activity["metricSummary"]["calories"] %> calories </li>
+    </ul>
+  </div>
 <% end %>
+</div>
