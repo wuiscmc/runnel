@@ -16,9 +16,9 @@ defmodule Runnel.Router do
   scope "/", Runnel do
     pipe_through :browser # Use the default browser stack
 
-    get "/", PageController, :index
-    get "/main", PageController, :main
-    post "/create_session", PageController, :create_session
+    get "/", AuthController, :index
+    post "/create_session", AuthController, :create_session
+
     get "/see_stuff", PageController, :see_stuff
   end
 

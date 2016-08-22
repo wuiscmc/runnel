@@ -1,0 +1,6 @@
+<%= form_for @conn, auth_path(@conn, :create_session), [as: :nike_session], fn f -> %>
+  <%= text_input f, :username %>
+  <%= password_input f, :password %>
+  <%= submit "Login" %>
+<% end %>
+
