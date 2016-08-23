@@ -9,21 +9,25 @@ defmodule Runnel.Router do
     plug :put_secure_browser_headers
   end
 
+  pipeline :auth_browser do
+    plug Runnel.RedirectOrSigninCookie
+  end
+
   pipeline :api do
     plug :accepts, ["json"]
   end
 
   scope "/", Runnel do
-    pipe_through :browser # Use the default browser stack
+    pipe_through :browser
+    pipe_through :auth_browser
+
+    get "/", PageController, :index
+  end
+
+  scope "/auth", Runnel do
+    pipe_through :browser
 
     get "/", AuthController, :index
     post "/create_session", AuthController, :create_session
-
-    get "/see_stuff", PageController, :see_stuff
   end
-
-  # Other scopes may use custom stacks.
-  # scope "/api", Runnel do
-  #   pipe_through :api
-  # end
 end
