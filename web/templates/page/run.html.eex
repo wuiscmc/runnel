@@ -1,0 +1,8 @@
+
+<ul>
+  <li><%= @data[:metricSummary]["calories"] %></li>
+  <li><%= @data[:metricSummary]["duration"] %></li>
+  <li><%= @data[:metricSummary]["distance"] %></li>
+</ul>
+
+<%= link("list of runs", to: page_url(@conn, :index)) %>

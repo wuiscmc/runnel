@@ -43,5 +43,6 @@ config :runnel, Runnel.Repo,
   pool_size: 10
 
 config :runnel, Runnel.Integrations.NikeRuns,
-  api_url: "localhost:4001"
+#  api_url: "localhost:4001"
+  api_url: "https://api.nike.com/v1/"
 

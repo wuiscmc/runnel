@@ -14,6 +14,14 @@ defmodule Runnel.Integrations.NikeRuns do
     ]]).body
  end
 
+ def fetch(access_token, run_id) do
+   get!("/me/sport/activities/#{run_id}",
+    [],
+    [params: [
+      access_token: access_token
+    ]]).body
+ end
+
  def process_response_body(body) do
    body
    |> Poison.decode!

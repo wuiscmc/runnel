@@ -22,6 +22,7 @@ defmodule Runnel.Router do
     pipe_through :auth_browser
 
     get "/", PageController, :index
+    get "/show/:run_id", PageController, :show
   end
 
   scope "/auth", Runnel do

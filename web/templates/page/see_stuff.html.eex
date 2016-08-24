@@ -7,6 +7,7 @@
       <li><%= activity["metricSummary"]["distance"] %> km </li>
       <li><%= activity["metricSummary"]["calories"] %> calories </li>
     </ul>
+    <%= link("see more", to: page_path(@conn, :show, activity["activityId"]), class: "btn") %>
   </div>
 <% end %>
 </div>
