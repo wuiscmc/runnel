@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
   </head>
 
-  <body>
+  <body data-js-namespace="<%= js_namespace(@conn, @view_module, @view_template) %>">
     <div class="container">
       <header class="header">
         <nav role="navigation">
@@ -30,6 +30,8 @@
       </main>
 
     </div> <!-- /container -->
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDxXj0L7y59MEvZa0w0iZQXNFj8SfXXAJ4"></script>
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
   </body>
 </html>
