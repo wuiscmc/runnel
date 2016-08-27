@@ -14,7 +14,16 @@ defmodule Runnel.Integrations.NikeRuns do
     ]]).body
  end
 
- def fetch(access_token, run_id) do
+ def fetch(access_token, run_id, true) do
+   get!("/me/sport/activities/#{run_id}/gps",
+    [],
+    [params: [
+      access_token: access_token
+    ]]).body
+ end
+
+
+ def fetch(access_token, run_id, gps \\ false) do
    get!("/me/sport/activities/#{run_id}",
     [],
     [params: [

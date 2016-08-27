@@ -1,8 +1,10 @@
+<div id="map" style="height:200px" data-waypoints=<%= @data["waypoints"] |> Poison.encode!  %>></div>
 
 <ul>
-  <li><%= @data[:metricSummary]["calories"] %></li>
-  <li><%= @data[:metricSummary]["duration"] %></li>
-  <li><%= @data[:metricSummary]["distance"] %></li>
+  <li><%= @data["duration"] %></li>
+  <li><%= @data["calories"] %></li>
+  <li><%= @data["distance"] %></li>
 </ul>
 
 <%= link("list of runs", to: page_url(@conn, :index)) %>
+
