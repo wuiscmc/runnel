@@ -19,3 +19,22 @@ import "phoenix_html"
 // paths "./socket" or full ones "web/static/js/socket".
 
 // import socket from "./socket"
+
+import MainView from './views/MainView';
+import loadView from './views/loader';
+
+function handleDOMContentLoaded() {
+  const namespace = document.getElementsByTagName('body')[0].getAttribute('data-js-namespace');
+
+  const view = new(loadView(namespace));
+  window.currentView = view;
+  window.currentView.mount();
+}
+
+function handleDocumentUnload() {
+  window.currentView.unmount();
+}
+
+window.addEventListener('DOMContentLoaded', handleDOMContentLoaded, false);
+window.addEventListener('unload', handleDocumentUnload, false);
+
