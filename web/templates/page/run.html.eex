@@ -1,10 +1,22 @@
-<div id="map" style="height:200px" data-waypoints=<%= @data["waypoints"] |> Poison.encode!  %>></div>
+<div id="run">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="wrapper">
+        <div class="header">
+          <h3><%= @data["startTime"]%></h3>
+        </div>
 
-<ul>
-  <li><%= @data["duration"] %></li>
-  <li><%= @data["calories"] %></li>
-  <li><%= @data["distance"] %></li>
-</ul>
+        <div class="stats">
+          <ul class="list-unstyled">
+            <li><span class="glyphicon glyphicon-road" aria-hidden="true"></span><%= {d,_} = Float.parse(@data["distance"]); Float.round(d,2) %> Distance (Km)</li>
+            <li><span class="glyphicon glyphicon-time" aria-hidden="true"></span><%= @data["duration"] %> Duration</li>
+            <li><span class="glyphicon glyphicon-fire" aria-hidden="true"></span><%= @data["calories"] %> Calories</li>
+          </ul>
+        </div>
+        <div id="map" class="map" data-waypoints=<%= @data["waypoints"] |> Poison.encode!  %>></div>
+      </div>
 
-<%= link("list of runs", to: page_url(@conn, :index)) %>
-
+      <%= link("list of runs", to: page_url(@conn, :index)) %>
+    </div>
+  </div>
+</div>

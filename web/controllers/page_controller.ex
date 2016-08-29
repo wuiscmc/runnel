@@ -16,6 +16,7 @@ defmodule Runnel.PageController do
 
     run_data_with_gps = Map.take(run_data[:metricSummary], ["calories", "duration", "distance"])
       |> Map.put("waypoints", data_with_gps)
+      |> Map.put("startTime", run_data[:startTime])
 
     conn
     |> assign(:data, run_data_with_gps)
