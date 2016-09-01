@@ -38,6 +38,7 @@ defmodule Runnel.Mixfile do
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:gettext, "~> 0.11"},
      {:httpoison, "~> 0.6"},
+     {:timex, "~> 3.0"},
      {:cowboy, "~> 1.0"}]
   end
 
