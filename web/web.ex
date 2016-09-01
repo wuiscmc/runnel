@@ -39,6 +39,17 @@ defmodule Runnel.Web do
     end
   end
 
+  def service do
+    quote do
+      alias Runnel.Repo
+      import Ecto
+      import Ecto.Query
+
+      import Runnel.Router.Helpers
+      import Runnel.Gettext
+    end
+  end
+
   def view do
     quote do
       use Phoenix.View, root: "web/templates"
