@@ -26,7 +26,6 @@ defmodule Runnel.NikeRun do
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, [:user_id, :waypoints, :start_time, :calories, :distance, :activity_id])
-    # |> validate_required([:user_id, :waypoints, :start_time, :calories, :distance])
+    |> validate_required([:user_id, :waypoints, :start_time, :calories, :distance])
   end
 end
-#%runnel.nikerun{}

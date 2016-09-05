@@ -1,6 +1,5 @@
 defmodule Runnel.NikePlusService do
   use Runnel.Web, :service
-
   alias Runnel.NikeRun
 
   def activities_list(token) do
@@ -36,12 +35,12 @@ defmodule Runnel.NikePlusService do
     end
   end
 
-  def save_activity(data) do
+  defp data_with_gps(_token, _run_id, _data), do: []
+
+  defp save_activity(data) do
     data = Enum.reduce(data, %{}, fn({k,v}, map) -> Map.put(map, String.to_atom(k), v) end)
 
     NikeRun.changeset(%NikeRun{}, Map.put(data, :user_id, 1))
     |> Repo.insert!
   end
-
-  defp data_with_gps(_token, _run_id, _data), do: []
 end
