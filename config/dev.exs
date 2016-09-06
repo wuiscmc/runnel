@@ -46,3 +46,10 @@ config :runnel, Runnel.Integrations.NikeRuns,
 #  api_url: "localhost:4001"
   api_url: "https://api.nike.com/v1/"
 
+
+config :runnel, Runnel.NikeFetcher,
+  credentials: %{
+    username: System.get_env("USER"),
+    password: System.get_env("PASSWORD")
+  }
+

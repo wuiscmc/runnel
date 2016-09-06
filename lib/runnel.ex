@@ -13,7 +13,7 @@ defmodule Runnel do
       # Start the endpoint when the application starts
       supervisor(Runnel.Endpoint, []),
       # Start your own worker by calling: Runnel.Worker.start_link(arg1, arg2, arg3)
-      # worker(Runnel.Worker, [arg1, arg2, arg3]),
+      worker(Runnel.NikeFetcher, []),
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html
