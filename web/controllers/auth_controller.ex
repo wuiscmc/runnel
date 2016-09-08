@@ -5,6 +5,7 @@ defmodule Runnel.AuthController do
   def index(conn, _params) do
     conn
     |> render_form_or_skip(conn.assigns[:access_token])
+    |> put_layout("public.html")
     |> render("index.html")
   end
 
