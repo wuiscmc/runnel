@@ -1,6 +1,16 @@
-<%= form_for @conn, auth_path(@conn, :create_session), [as: :nike_session], fn f -> %>
-  <%= text_input f, :username %>
-  <%= password_input f, :password %>
-  <%= submit "Login" %>
-<% end %>
+<div id="login-box">
+  <div class="logo">
+  </div>
 
+  <%= form_for @conn, auth_path(@conn, :create_session), [as: :nike_session], fn f -> %>
+    <div class="form-group">
+      <%= text_input f, :username, class: "form-control form-big", placeholder: "Username" %>
+    </div>
+
+    <div class="form-group">
+      <%= password_input f, :password, class: "form-control form-big", placeholder: "Password" %>
+    </div>
+
+    <%= submit "Login", class: "btn btn-primary" %>
+  <% end %>
+</div>

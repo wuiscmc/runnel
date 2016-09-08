@@ -1,6 +1,86 @@
 @import 'node_modules/font-awesome/scss/font-awesome';
+@import 'https://fonts.googleapis.com/css?family=Lato|Questrial';
+
+html,body{
+  height: 100%;
+}
+
+body{
+  margin: 0;
+  font-family: 'Lato', sans-serif;
+}
+
+* {
+  border-radius: 0 !important;
+}
+
+.logo{
+  font-family: 'Lato', sans-serif;
+  font-size: 1.5em;
+  height: 100px;
+  width: 100%;
+  background-size: 200px;
+  background-image: url("/images/logo3.png");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+// .logo:after{
+//   content: "nnel";
+// }
+
+#login-box{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+
+  form{
+    max-width: 60%;
+    width: 60%;
+
+    input[type="submit"]{
+      padding: 10px 20px;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      padding: 20px;
+      text-align: center;
+    }
+  }
+}
+
+.grid-container{
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+
+  .col{
+    width: 33%;
+  }
+}
+
+.run-box{
+  border: 1px solid black;
+}
+
+// .logo{
+//   background-image: url('/images/logo3.png');
+//   display: inline-block;
+//   height: 400px;
+//   width: 166px;
+//   background-size: 400px 166px;
+// }
 
 #run {
+  margin-top: -20px;
+
   .wrapper {
     position: relative;
     background: #000;

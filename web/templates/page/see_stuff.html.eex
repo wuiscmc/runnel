@@ -1,13 +1,14 @@
-<div class="container">
-<%= for activity <- @data[:data] do %>
-  <div class="row">
-    <h3>Run on <%= activity["startTime"] %></h3>
-    <ul>
-      <li><%= activity["metricSummary"]["duration"] %></li>
-      <li><%= activity["metricSummary"]["distance"] %> km </li>
-      <li><%= activity["metricSummary"]["calories"] %> calories </li>
-    </ul>
-    <%= link("see more", to: page_path(@conn, :show, activity["activityId"]), class: "btn") %>
-  </div>
-<% end %>
+<div class="grid-container">
+  <%= for activity <- @data[:data] do %>
+    <div class="col thumbnail">
+      <div class="caption">
+        <h3> <%= link(activity["startTime"], to: page_path(@conn, :show, activity["activityId"])) %> </h3>
+        <ul class="list-unstyled">
+          <li><%= activity["metricSummary"]["duration"] %></li>
+          <li><%= activity["metricSummary"]["distance"] %> km </li>
+          <li><%= activity["metricSummary"]["calories"] %> calories </li>
+        </ul>
+      </div>
+    </div>
+  <% end %>
 </div>

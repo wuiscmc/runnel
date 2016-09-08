@@ -12,24 +12,20 @@
   </head>
 
   <body data-js-namespace="<%= js_namespace(@conn, @view_module, @view_template) %>">
-    <div class="container-fluid">
-      <%# <header class="header"> %>
-      <%#   <nav role="navigation"> %>
-      <%#     <ul class="nav nav-pills pull-right"> %>
-      <%#       <li><a href="http://www.phoenixframework.org/docs">Get Started</a></li> %>
-      <%#     </ul> %>
-      <%#   </nav> %>
-      <%#   <span class="logo"></span> %>
-      <%# </header> %>
+    <header class="header">
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="#">Runnel</a>
+          </div>
+        </div>
+      </nav>
+    </header>
 
-      <%# <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %1></p> %>
-      <%# <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %1></p> %>
+    <main role="main">
+    <%= render @view_module, @view_template, assigns %>
+    </main>
 
-      <%# <main role="main"> %>
-        <%= render @view_module, @view_template, assigns %>
-      <%# </main> %>
-
-    </div> <!-- /container -->
 
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDxXj0L7y59MEvZa0w0iZQXNFj8SfXXAJ4"></script>
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
