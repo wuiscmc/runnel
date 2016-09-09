@@ -16,11 +16,11 @@ defmodule Runnel.NikePlusService do
         data_with_gps = data_with_gps(token, run_id, run_data[:isGpsActivity])
 
         Map.take(run_data[:metricSummary], ["calories", "duration", "distance"])
-          |> Map.put("waypoints", data_with_gps)
-          |> Map.put("start_time", run_data[:startTime])
-          |> Map.put("activity_id", run_data[:activityId])
-          |> save_activity
-        end
+        |> Map.put("waypoints", data_with_gps)
+        |> Map.put("start_time", run_data[:startTime])
+        |> Map.put("activity_id", run_data[:activityId])
+        |> save_activity
+    end
   end
 
   defp data_with_gps(token, run_id, true) do
@@ -30,7 +30,7 @@ defmodule Runnel.NikePlusService do
       {:error_id, _data} -> []
       _other ->
         Enum.map(data[:waypoints], fn
-          (waypoint) -> %{ "lng" => waypoint["longitude"], "lat" => waypoint["latitude"] }
+           (waypoint) -> %{ "lng" => waypoint["longitude"], "lat" => waypoint["latitude"] }
         end)
     end
   end

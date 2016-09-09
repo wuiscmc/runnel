@@ -3,7 +3,8 @@ defmodule Runnel.PageController do
   alias Runnel.NikePlusService
 
   def index(conn, _params) do
-    activities = NikePlusService.activities_list(conn.assigns.access_token)
+    query = from run in Runnel.NikeRun
+    activities = Runnel.Repo.all(query)
 
     conn
     |> assign(:data, activities)

@@ -1,13 +1,18 @@
 <div class="grid-container">
-  <%= for activity <- @data[:data] do %>
-    <div class="col thumbnail">
-      <div class="caption">
-        <h3> <%= link(activity["startTime"], to: page_path(@conn, :show, activity["activityId"])) %> </h3>
-        <ul class="list-unstyled">
-          <li><%= activity["metricSummary"]["duration"] %></li>
-          <li><%= activity["metricSummary"]["distance"] %> km </li>
-          <li><%= activity["metricSummary"]["calories"] %> calories </li>
+  <%= for activity <- @data do %>
+    <div class="col run-box run">
+      <div class="wrapper">
+        <div class="header">
+          <h3> <%= link(activity.start_time, to: page_path(@conn, :show, activity.activity_id)) %> </h3>
+        </div>
+
+        <ul class="list-unstyled run-data stats" data-waypoints=<%= activity.waypoints |> Poison.encode! %>>
+          <li><%= activity.duration %></li>
+          <li><%= activity.distance %> km </li>
+          <li><%= activity.calories %> calories </li>
         </ul>
+
+        <div class="map2"></div>
       </div>
     </div>
   <% end %>
