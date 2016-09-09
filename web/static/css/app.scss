@@ -1,5 +1,23 @@
 @import 'node_modules/font-awesome/scss/font-awesome';
 @import 'https://fonts.googleapis.com/css?family=Lato|Questrial';
+/* Coolors Exported Palette - coolors.co/dcdcdd-c5c3c6-353d44-4c5c68-56b7a5 */
+
+/* HSL */
+// $color1: hsla(0%, 0%, 90%, 1);
+// $color2: hsla(0%, 0%, 86%, 1);
+// $color3: hsla(214%, 5%, 30%, 1);
+// $color4: hsla(190%, 3%, 45%, 1);
+// $color5: hsla(193%, 28%, 68%, 1);
+
+/* RGB */
+$color1: #e5e5e5; $color1-fontcolor: #a9abae;
+$color2: #dbdbdb;
+$color3: #4a4d51;
+$color4: #6f7475; $color4-fontcolor: #9a9d9e;
+$color5: #95bac4; $color5-fontcolor: #78949e;
+$color6: #fffacd; //lemonshiffon - amarillo pastel
+$color7: #f08080;
+
 
 html,body{
   height: 100%;
@@ -8,6 +26,8 @@ html,body{
 body{
   margin: 0;
   font-family: 'Lato', sans-serif;
+  background-color: $color1;
+  color: #efefef !important;
 }
 
 * {
@@ -62,26 +82,37 @@ body{
   align-items: center;
 
   .col{
-    width: 33%;
+    width: 49%;
+    border: 0;
+    border-top: 6px solid transparent !important;
+
+    &:hover{
+    border-top: 6px solid $color7 !important;
+    }
   }
 }
 
 .run-box{
-  border: 1px solid black;
+  background-color: #4a4d51 !important;
+  margin-left: 2px;
+  margin-right: 2px;
+  height: 200px;
+  margin-bottom: 30px;
+
+  & > * {
+    color: $color2 !important;
+  }
 }
 
-// .logo{
-//   background-image: url('/images/logo3.png');
-//   display: inline-block;
-//   height: 400px;
-//   width: 166px;
-//   background-size: 400px 166px;
-// }
+a{
+  color: $color5 !important;
+}
 
-#run {
+.run {
   margin-top: -20px;
 
   .wrapper {
+    height: 100%;
     position: relative;
     background: #000;
   }
@@ -106,5 +137,11 @@ body{
     opacity: 0.6;
     height: 600px;
   }
+
+  .map2 {
+    opacity: 0.6;
+    height: 100%;
+  }
+
 }
 

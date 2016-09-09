@@ -1,11 +1,10 @@
-<div id="run">
+<div class="run">
   <div class="row">
     <div class="col-xs-12">
       <div class="wrapper">
         <div class="header">
           <h3><%= @data.start_time%></h3>
         </div>
-
         <div class="stats">
           <ul class="list-unstyled">
             <li><i class="fa fa-road fa-lg"></i><%= @data.distance %> Distance (Km)</li>
@@ -13,9 +12,8 @@
             <li><i class="fa fa-fire" ></i><%= @data.calories %> Calories</li>
           </ul>
         </div>
-        <div id="map" class="map" data-waypoints=<%= @data.waypoints |> Poison.encode!  %>></div>
+        <div class="map" data-waypoints=<%= @data.waypoints |> Poison.encode!  %>></div>
       </div>
-
       <%= link("list of runs", to: page_url(@conn, :index)) %>
     </div>
   </div>
