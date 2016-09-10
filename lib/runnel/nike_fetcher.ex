@@ -33,14 +33,14 @@ defmodule Runnel.NikeFetcher do
   end
 
   defp fetch_activity(token, run_id) do
-    run_data = Runnel.Integrations.NikeRuns.fetch(token, run_id)
+    run_data = Runnel.Integrations.NikeRuns.fetch(token, run_id, gps: false)
 
     data = %{
       calories: run_data[:metricSummary]["calories"],
       duration: run_data[:metricSummary]["duration"],
       distance: run_data[:metricSummary]["distance"],
       start_time: run_data[:startTime],
-      waypoints: data_with_gps(token, run_id, run_data[:isGpsActivity]),
+      waypoints: fetch_gps_data(token, run_id, run_data[:isGpsActivity]),
       activity_id: run_data[:activityId],
       user_id: 1,
     }
@@ -50,19 +50,19 @@ defmodule Runnel.NikeFetcher do
     |> Runnel.Repo.insert!
   end
 
-  defp data_with_gps(token, run_id, true) do
+  defp fetch_gps_data(token, run_id, true) do
     data = Runnel.Integrations.NikeRuns.fetch(token, run_id, gps: true)
 
     case List.first(data) do
       {:error_id, _data} -> []
       _other ->
-        Enum.map(data[:waypoints], fn
-          (waypoint) -> %{ "lng" => waypoint["longitude"], "lat" => waypoint["latitude"] }
+        Enum.map(data[:waypoints], fn(waypoint) ->
+         %{ "lng" => waypoint["longitude"], "lat" => waypoint["latitude"] }
         end)
     end
   end
 
-  defp data_with_gps(_token, _run_id, _data), do: []
+  defp fetch_gps_data(_token, _run_id, _data), do: []
 
   defp fetch_latest_remote_activity_ids(token) do
     Logger.debug "fetch_latest_remote_activity_ids"

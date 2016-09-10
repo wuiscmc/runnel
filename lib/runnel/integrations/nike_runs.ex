@@ -13,8 +13,8 @@ defmodule Runnel.Integrations.NikeRuns do
  def fetch(access_token, run_id, params \\ []) do
    endpoint = "/me/sport/activities/#{run_id}"
 
-   if params[:gps], do: endpoint <> "/gps", else: endpoint
-   |> request(access_token)
+   endpoint = if params[:gps], do: endpoint <> "/gps", else: endpoint
+   request(endpoint, access_token)
  end
 
  def process_response_body(body) do
@@ -27,7 +27,8 @@ defmodule Runnel.Integrations.NikeRuns do
    get!(endpoint,
     [],
     [params: [
-      access_token: access_token
+      access_token: access_token,
+      count: 20
     ]]).body
  end
 end
