@@ -19,7 +19,7 @@ defmodule Runnel.Router do
 
   scope "/", Runnel do
     pipe_through :browser
-    pipe_through :auth_browser
+    # pipe_through :auth_browser
 
     get "/", PageController, :index
     get "/show/:run_id", PageController, :show

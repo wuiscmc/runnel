@@ -29,14 +29,45 @@ defmodule Runnel.NikeFetcher do
     Logger.debug "extract_new_runs"
 
     MapSet.difference(MapSet.new(activity_ids), MapSet.new(nike_runs))
-    |> Enum.each(&Runnel.NikePlusService.activity(token, &1))
+    |> Enum.each(&activity(token, &1))
   end
 
+  defp activity(token, run_id) do
+    run_data = Runnel.Integrations.NikeRuns.fetch(token, run_id)
+
+    data = %{
+      calories: run_data[:metricSummary]["calories"],
+      duration: run_data[:metricSummary]["duration"],
+      distance: run_data[:metricSummary]["distance"],
+      start_time: run_data[:startTime],
+      waypoints: data_with_gps(token, run_id, run_data[:isGpsActivity]),
+      activity_id: run_data[:activityId],
+      user_id: 1,
+    }
+
+    data
+    |> (&Runnel.NikeRun.changeset(%Runnel.NikeRun{}, &1)).()
+    |> Runnel.Repo.insert!
+  end
+
+  defp data_with_gps(token, run_id, true) do
+    data = Runnel.Integrations.NikeRuns.fetch(token, run_id, true)
+
+    case List.first(data) do
+      {:error_id, _data} -> []
+      _other ->
+        Enum.map(data[:waypoints], fn
+          (waypoint) -> %{ "lng" => waypoint["longitude"], "lat" => waypoint["latitude"] }
+        end)
+    end
+  end
+
+  defp data_with_gps(_token, _run_id, _data), do: []
 
   defp fetch_latest_remote_activity_ids(token) do
     Logger.debug "fetch_latest_remote_activity_ids"
 
-    activities = Runnel.NikePlusService.activities_list(token)
+    activities = Runnel.Integrations.NikeRuns.fetch(token)
     Enum.map(activities[:data], fn(activity) -> activity["activityId"] end)
   end
 
