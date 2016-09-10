@@ -3,11 +3,11 @@ defmodule Runnel.LayoutView do
 
   # Takes the view_module's and view_template's name and parses it to
   # return a sensible name:
-  # 
-  # given a template index.html from the AuthView module, 
+  #
+  # given a template index.html from the AuthView module,
   # it parses it and returns
   # AuthIndexView
-  def js_namespace(conn, view_module, view_template) do
+  def js_namespace(conn, _view_module, view_template) do
     [view_name(conn), template_name(view_template)]
     |> Enum.reverse
     |> List.insert_at(0, "view")
@@ -18,7 +18,7 @@ defmodule Runnel.LayoutView do
 
   # Takes the resource name of the view module and removes the
   # the ending *_view* string.
-  # 
+  #
   # given a view_module 'auth_view', it returns 'auth'
   defp view_name(conn) do
     conn

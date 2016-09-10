@@ -4,7 +4,7 @@ defmodule Runnel.NikeFetcher do
   import Ecto.Query, only: [from: 2]
 
   def start_link(opts \\ []) do
-    {:ok, pid} = GenServer.start_link(__MODULE__, [], opts)
+    {:ok, _pid} = GenServer.start_link(__MODULE__, [], opts)
   end
 
   def init(state) do
@@ -17,7 +17,7 @@ defmodule Runnel.NikeFetcher do
     extract_new_runs(token, fetch_latest_remote_activity_ids(token), fetch_latest_db_activity_ids)
 
     Logger.debug "scheduling again"
-    schedule_poll(60_000)
+    schedule_poll(600_000)
     {:noreply, state}
   end
 
@@ -25,14 +25,14 @@ defmodule Runnel.NikeFetcher do
     Process.send_after(self(), :work, time)
   end
 
-  defp extract_new_runs(token, activity_ids, nike_runs \\ []) when length(activity_ids) > 0 do
+  defp extract_new_runs(token, activity_ids, nike_runs) when length(activity_ids) > 0 do
     Logger.debug "extract_new_runs"
 
     MapSet.difference(MapSet.new(activity_ids), MapSet.new(nike_runs))
-    |> Enum.each(&activity(token, &1))
+    |> Enum.each(&fetch_activity(token, &1))
   end
 
-  defp activity(token, run_id) do
+  defp fetch_activity(token, run_id) do
     run_data = Runnel.Integrations.NikeRuns.fetch(token, run_id)
 
     data = %{
