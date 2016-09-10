@@ -1,8 +1,11 @@
 defmodule Runnel.PageController do
   use Runnel.Web, :controller
+  import Ecto.Query, only: [from: 2]
 
   def index(conn, _params) do
-    activities = Runnel.Repo.all(Runnel.NikeRun)
+    query = from Runnel.NikeRun, order_by: [desc: :start_time]
+
+    activities = Runnel.Repo.all(query)
 
     conn
     |> assign(:data, activities)
