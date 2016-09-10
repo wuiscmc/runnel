@@ -3,25 +3,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import RunMap from '../RunMap';
 
-export default class PageSee_stuffView extends MainView {
+export default class PageShowView extends MainView {
 
   mount() {
     super.mount();
-    const runs = document.getElementsByClassName('run-box');
+    const mapContainer = document.querySelector(".map");
+    const waypoints = JSON.parse(mapContainer.getAttribute("data-waypoints"));
 
-    const maps = Array.from(runs).map((run) => {
-      let waypointsContainer = run.children[0].children[1]
-      let waypoints = JSON.parse(waypointsContainer.dataset["waypoints"]);
-      let mapContainer = run.querySelector(".map2");
-      if(waypoints.length > 0) {
-        ReactDOM.render(<RunMap waypoints={waypoints} container={mapContainer}/>, mapContainer);
-      } else {
-        mapContainer.innerHTML = '<img src="/images/running-track-small.jpg" />'
-      }
-
-      return true;
-    })
-
+    if(waypoints.length > 0) {
+      ReactDOM.render(<RunMap waypoints={waypoints} container={mapContainer}/>, mapContainer);
+    }
 
     // const geocoder = new google.maps.Geocoder;
     // geocoder.geocode({'location': waypoints[0], 'bounds': waypoints}, (results, status) => {

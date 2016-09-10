@@ -6,14 +6,14 @@ defmodule Runnel.PageController do
 
     conn
     |> assign(:data, activities)
-    |> render("see_stuff.html")
+    |> render("index.html")
   end
 
   def show(conn, %{"run_id" => run_id}) do
-    activity = Repo.get_by(NikeRun, activity_id: run_id)
+    activity = Repo.get_by(Runnel.NikeRun, activity_id: run_id)
 
     conn
     |> assign(:data, activity)
-    |> render("run.html")
+    |> render("show.html")
   end
 end

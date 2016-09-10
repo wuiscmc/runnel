@@ -1,11 +1,11 @@
 import MainView from './MainView';
-import PageRunView from './PageRunView';
-import PageSee_stuffView from './PageSee_stuffView';
+import PageIndexView from './PageIndexView';
+import PageShowView from './PageShowView';
 
 // Collection of specific view modules
 const views = {
-  PageRunView,
-  PageSee_stuffView,
+  PageShowView,
+  PageIndexView,
 };
 
 export default function loadView(viewName) {

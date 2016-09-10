@@ -51,7 +51,7 @@ defmodule Runnel.NikeFetcher do
   end
 
   defp data_with_gps(token, run_id, true) do
-    data = Runnel.Integrations.NikeRuns.fetch(token, run_id, true)
+    data = Runnel.Integrations.NikeRuns.fetch(token, run_id, gps: true)
 
     case List.first(data) do
       {:error_id, _data} -> []
@@ -82,7 +82,7 @@ defmodule Runnel.NikeFetcher do
   defp fetch_latest_db_activity_ids do
     Logger.debug "fetch_latest_db_activity_ids"
 
-    query = from run in Runnel.NikeRun, select: run.activity_id, limit: 5
+    query = from run in Runnel.NikeRun, select: run.activity_id
     Runnel.Repo.all(query)
   end
 end

@@ -7,33 +7,27 @@ defmodule Runnel.Integrations.NikeRuns do
  end
 
  def fetch(access_token) do
-   get!("/me/sport/activities/RUNNING",
-    [],
-    [params: [
-      access_token: access_token
-    ]]).body
+   request("/me/sport/activities/RUNNING", access_token)
  end
 
- def fetch(access_token, run_id, true) do
-   get!("/me/sport/activities/#{run_id}/gps",
-    [],
-    [params: [
-      access_token: access_token
-    ]]).body
- end
+ def fetch(access_token, run_id, params \\ []) do
+   endpoint = "/me/sport/activities/#{run_id}"
 
-
- def fetch(access_token, run_id, gps \\ false) do
-   get!("/me/sport/activities/#{run_id}",
-    [],
-    [params: [
-      access_token: access_token
-    ]]).body
+   if params[:gps], do: endpoint <> "/gps", else: endpoint
+   |> request(access_token)
  end
 
  def process_response_body(body) do
    body
    |> Poison.decode!
    |> Enum.map(fn({k, v}) -> {String.to_atom(k), v} end)
+ end
+
+ defp request(endpoint, access_token) do
+   get!(endpoint,
+    [],
+    [params: [
+      access_token: access_token
+    ]]).body
  end
 end
