@@ -1,6 +1,5 @@
 <div id="login-box">
-  <div class="logo">
-  </div>
+  <div class="logo"></div>
 
   <%= form_for @conn, auth_path(@conn, :create_session), [as: :nike_session], fn f -> %>
     <div class="form-group">
