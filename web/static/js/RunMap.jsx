@@ -17,7 +17,10 @@ class RunMap extends Component {
       var map = new google.maps.Map(this.props.container, {
         zoom: 100,
         center: bounds.getCenter(),
-        mapTypeId: google.maps.MapTypeId.TERRAIN
+        draggable: false,
+        scrollwheel: false,
+        keyboardShortcuts: false,
+        disableDoubleClickZoom: true
       });
 
       map.fitBounds(bounds);
