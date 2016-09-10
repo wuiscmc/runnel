@@ -98,9 +98,14 @@ body{
   margin-right: 2px;
   height: 200px;
   margin-bottom: 30px;
+  font-family: "Lato", sans-serif;
 
   & > * {
     color: $color2 !important;
+  }
+
+  .time {
+    font-size: 0.85em;
   }
 
   .map2 img{

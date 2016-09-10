@@ -3,13 +3,12 @@
     <div class="col run-box run">
       <div class="wrapper">
         <div class="header">
-          <h3> <%= link(activity.start_time, to: page_path(@conn, :show, activity.activity_id)) %> </h3>
         </div>
 
         <ul class="list-unstyled run-data stats" data-waypoints=<%= activity.waypoints |> Poison.encode! %>>
+          <li class="time"><%= Timex.format!(activity.start_time, "%d %B %Y", :strftime) %></li>
           <li><%= activity.duration %></li>
-          <li><%= activity.distance %> km </li>
-          <li><%= activity.calories %> calories </li>
+          <li class="important"><%= Float.round(activity.distance, 1) %>K RUN </li>
         </ul>
 
         <div class="map2"></div>
