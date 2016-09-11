@@ -7,10 +7,16 @@ defmodule Runnel.NikeService do
 
     new_runs = MapSet.difference(fetch_latest_runs(token), fetch_local_runs)
 
-    new_runs
-    |> Enum.map(&fetch_run_data(token, &1))
-    |> Enum.map(&save_run_data(&1))
+    Enum.each(new_runs, fn(run) ->
+     {:ok, _pid} = Task.Supervisor.start_child(Runnel.NikeRunTaskSupervisor, __MODULE__, :import_run, [token, run])
+    end)
   end
+
+  def import_run(token, data) do
+    fetch_run_data(token, data)
+    |> save_run_data
+  end
+
 
   defp fetch_latest_runs(token) do
     Logger.debug "fetch_latest_runs"

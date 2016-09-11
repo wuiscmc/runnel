@@ -1,18 +1,18 @@
 defmodule Runnel.NikeFetcher do
   use GenServer
   require Logger
-  # import Supervisor.Spec
+  import Supervisor.Spec
 
   def start_link(opts \\ []) do
     {:ok, _pid} = GenServer.start_link(__MODULE__, [], opts)
   end
 
   def init(state) do
-    # children = [
-    #   supervisor(Task.Supervisor, [[name: Runnel.NikeRunTaskSupervisor]]),
-    # ]
+    children = [
+      supervisor(Task.Supervisor, [[name: Runnel.NikeRunTaskSupervisor]]),
+    ]
 
-    # {:ok, pid} = Supervisor.start_link(children, strategy: :one_for_one)
+    {:ok, pid} = Supervisor.start_link(children, strategy: :one_for_one)
 
     schedule_poll(1_000)
     {:ok, state}
