@@ -10,7 +10,8 @@ export default class PageIndexView extends MainView {
     const runs = document.getElementsByClassName('run-box');
 
     const maps = Array.from(runs).map((run) => {
-      let waypointsContainer = run.children[0].children[1]
+      let waypointsContainer = run.querySelector(".stats");
+
       let waypoints = JSON.parse(waypointsContainer.dataset["waypoints"]);
       let mapContainer = run.querySelector(".map2");
       if(waypoints.length > 0) {
