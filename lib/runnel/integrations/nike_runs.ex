@@ -18,9 +18,7 @@ defmodule Runnel.Integrations.NikeRuns do
  end
 
  def process_response_body(body) do
-   body
-   |> Poison.decode!
-   |> Enum.map(fn({k, v}) -> {String.to_atom(k), v} end)
+   body |> Poison.decode!
  end
 
  defp request(endpoint, access_token) do
