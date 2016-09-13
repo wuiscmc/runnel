@@ -1,4 +1,4 @@
-defmodule Runnel.NikeFetcher do
+defmodule Runnel.NikeFetcherWorker do
   use GenServer
   require Logger
   import Supervisor.Spec
