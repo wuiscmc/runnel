@@ -20,21 +20,23 @@ import "phoenix_html"
 
 // import socket from "./socket"
 
-import MainView from './views/MainView';
-import loadView from './views/loader';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import RunMap from './RunMap';
 
-function handleDOMContentLoaded() {
-  const namespace = document.getElementsByTagName('body')[0].getAttribute('data-js-namespace');
+const runs = document.getElementsByClassName('run-box');
 
-  const view = new(loadView(namespace));
-  window.currentView = view;
-  window.currentView.mount();
-}
+const maps = Array.from(runs).map((run) => {
+  let waypointsContainer = run.querySelector(".stats");
 
-function handleDocumentUnload() {
-  window.currentView.unmount();
-}
+  let waypoints = JSON.parse(waypointsContainer.dataset["waypoints"]);
+  let mapContainer = run.querySelector(".map2");
+  if(waypoints.length > 0) {
+    ReactDOM.render(<RunMap waypoints={waypoints} container={mapContainer}/>, mapContainer);
+  } else {
+    mapContainer.innerHTML = '<img src="/images/running-track-small.jpg" />'
+  }
 
-window.addEventListener('DOMContentLoaded', handleDOMContentLoaded, false);
-window.addEventListener('unload', handleDocumentUnload, false);
+  return true;
+})
 
