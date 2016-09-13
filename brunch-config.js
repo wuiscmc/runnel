@@ -73,6 +73,7 @@ exports.config = {
   },
 
   npm: {
-    enabled: true
+    enabled: true,
+    whitelist: ["font-awesome", "lodash"]
   }
 };
