@@ -1,23 +1,6 @@
 @import 'node_modules/font-awesome/scss/font-awesome';
 @import 'https://fonts.googleapis.com/css?family=Lato|Questrial';
-
-/* Coolors Exported Palette - coolors.co/dcdcdd-c5c3c6-353d44-4c5c68-56b7a5 */
-/* HSL */
-// $color1: hsla(0%, 0%, 90%, 1);
-// $color2: hsla(0%, 0%, 86%, 1);
-// $color3: hsla(214%, 5%, 30%, 1);
-// $color4: hsla(190%, 3%, 45%, 1);
-// $color5: hsla(193%, 28%, 68%, 1);
-
-/* RGB */
-$color1: #e5e5e5; $color1-fontcolor: #a9abae;
-$color2: #dbdbdb;
-$color3: #4a4d51;
-$color4: #6f7475; $color4-fontcolor: #9a9d9e;
-$color5: #95bac4; $color5-fontcolor: #78949e;
-$color6: #fffacd; //lemonshiffon - amarillo pastel
-$color7: #f08080;
-
+@import './colors';
 
 html,body{
   height: 100%;
@@ -45,7 +28,6 @@ body{
   background-position: center;
 }
 
-@import "./login"
-@import "./run"
-@import "./run_grid"
-
+@import './login';
+@import './run';
+@import './run_grid';
