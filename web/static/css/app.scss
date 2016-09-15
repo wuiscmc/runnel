@@ -1,7 +1,7 @@
 @import 'node_modules/font-awesome/scss/font-awesome';
 @import 'https://fonts.googleapis.com/css?family=Lato|Questrial';
-/* Coolors Exported Palette - coolors.co/dcdcdd-c5c3c6-353d44-4c5c68-56b7a5 */
 
+/* Coolors Exported Palette - coolors.co/dcdcdd-c5c3c6-353d44-4c5c68-56b7a5 */
 /* HSL */
 // $color1: hsla(0%, 0%, 90%, 1);
 // $color2: hsla(0%, 0%, 86%, 1);
@@ -45,112 +45,7 @@ body{
   background-position: center;
 }
 
-// .logo:after{
-//   content: "nnel";
-// }
-
-#login-box{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  height: 100%;
-  padding: 0;
-  margin: 0;
-  text-align: center;
-
-  form{
-    max-width: 60%;
-    width: 60%;
-
-    input[type="submit"]{
-      padding: 10px 20px;
-    }
-
-    input[type="text"],
-    input[type="password"] {
-      padding: 20px;
-      text-align: center;
-    }
-  }
-}
-
-.grid-container{
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: center;
-  align-items: center;
-
-  .col{
-    width: 49%;
-    border: 0;
-    border-top: 6px solid transparent !important;
-
-    &:hover{
-    border-top: 6px solid $color7 !important;
-    }
-  }
-}
-
-.run-box{
-  background-color: #4a4d51 !important;
-  margin-left: 2px;
-  margin-right: 2px;
-  height: 200px;
-  margin-bottom: 30px;
-  font-family: "Lato", sans-serif;
-
-  & > * {
-    color: $color2 !important;
-  }
-
-  .time {
-    font-size: 0.85em;
-  }
-
-  .map2 img{
-    width: 100%;
-    height: 100%;
-  }
-}
-
-a{
-  color: white !important;
-}
-
-.run {
-  margin-top: -20px;
-
-  .wrapper {
-    height: 100%;
-    position: relative;
-  }
-
-  .header {
-    position: absolute;
-    z-index: 1;
-    color: #fff;
-    left: 35%;
-    font-weight: bold;
-  }
-
-  .stats {
-    position: absolute;
-    z-index: 1;
-    color: #fff;
-    top: 10%;
-    left: 5%;
-  }
-
-  .map {
-    opacity: 0.6;
-    height: 600px;
-  }
-
-  .map2 {
-    opacity: 0.6;
-    height: 100%;
-  }
-
-}
+@import "./login"
+@import "./run"
+@import "./run_grid"
 
