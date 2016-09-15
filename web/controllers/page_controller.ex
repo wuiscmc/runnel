@@ -5,10 +5,10 @@ defmodule Runnel.PageController do
   def index(conn, _params) do
     query = from Runnel.NikeRun, order_by: [desc: :start_time]
 
-    activities = Runnel.Repo.all(query)
+    runs = Runnel.Repo.all(query)
 
     conn
-    |> assign(:data, activities)
+    |> assign(:runs, runs)
     |> render("index.html")
   end
 

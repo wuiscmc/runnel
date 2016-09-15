@@ -8,9 +8,8 @@ html,body{
 
 body{
   margin: 0;
-  font-family: 'Lato', sans-serif;
+  font-family: 'Lato', sans-serif !important;
   background-color: $color1;
-  color: #efefef !important;
 }
 
 * {
@@ -29,5 +28,4 @@ body{
 }
 
 @import './login';
-@import './run';
 @import './run_grid';

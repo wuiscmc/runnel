@@ -1,43 +1,74 @@
+@import './colors';
+
 .grid-container{
   display: flex;
   flex-flow: row wrap;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
+  margin-bottom: 50px;
 
-  .col{
-    width: 49%;
+  .grid-cell{
+    width: 50%;
+    height: 200px;
     border: 0;
-    border-top: 6px solid transparent !important;
-
-    &:hover{
-    border-top: 6px solid $color7 !important;
-    }
   }
 }
 
-.run-box{
+.grid-cell-content{
+  width: 99%;
+  height: 98%;
+  margin: 0 auto;
   background-color: #4a4d51 !important;
-  margin-left: 2px;
-  margin-right: 2px;
-  height: 200px;
-  margin-bottom: 30px;
-  font-family: "Lato", sans-serif;
 
   & > * {
     color: $color2 !important;
+  }
+
+  .overlay {
+    height: 100%;
+    position: relative;
+  }
+
+  .header {
+    position: absolute;
+    z-index: 1;
+    color: #fff;
+    left: 35%;
+    font-weight: bold;
+  }
+
+  .content {
+    position: absolute;
+    z-index: 1;
+    color: #fff;
+    top: 10%;
+    left: 5%;
   }
 
   .time {
     font-size: 0.85em;
   }
 
-  .map2 img{
-    width: 100%;
+  .map {
+    opacity: 0.6;
     height: 100%;
+
+    img{
+      width: 100%;
+      height: 100%;
+    }
   }
 }
 
-a{
-  color: white !important;
+
+@media(min-width: 1000px) {
+  .grid-container .grid-cell {
+    width: 33.333333333%;
+  }
 }
 
+@media(max-width: 700px) {
+  .grid-container .grid-cell {
+    width: 100%;
+  }
+}

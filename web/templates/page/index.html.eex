@@ -1,18 +1,21 @@
-<div class="grid-container">
-  <%= for activity <- @data do %>
-    <div class="col run-box run">
-      <div class="wrapper">
-        <div class="header">
+<%= for {month, activities} <- group_runs_by_month(@runs) do %>
+
+  <div class="grid-container">
+    <%= for activity <- activities do %>
+      <div class="grid-cell">
+        <div class="grid-cell-content run">
+          <div class="overlay">
+            <ul class="list-unstyled content run-data" data-waypoints=<%= activity.waypoints |> Poison.encode! %>>
+              <li class="time"><%= Timex.format!(activity.start_time, "%d %B %Y", :strftime) %></li>
+              <li><%= activity.duration %></li>
+              <li class="important"><%= Float.round(activity.distance, 1) %>K RUN </li>
+            </ul>
+
+            <div class="map"></div>
+          </div>
         </div>
-
-        <ul class="list-unstyled run-data stats" data-waypoints=<%= activity.waypoints |> Poison.encode! %>>
-          <li class="time"><%= Timex.format!(activity.start_time, "%d %B %Y", :strftime) %></li>
-          <li><%= activity.duration %></li>
-          <li class="important"><%= Float.round(activity.distance, 1) %>K RUN </li>
-        </ul>
-
-        <div class="map2"></div>
       </div>
-    </div>
-  <% end %>
-</div>
+    <% end %>
+  </div>
+
+<% end %>
