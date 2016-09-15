@@ -7,7 +7,7 @@ defmodule Runnel.Repo.Migrations.CreateNikeRun do
       add :waypoints, {:array, :map}, default: [] #{:array, :map}, default: []
       add :start_time, :datetime
       add :calories, :integer
-      add :duration, :time
+      add :duration, :string
       add :distance, :float
       add :activity_id, :string
 

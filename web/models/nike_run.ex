@@ -13,7 +13,7 @@ defmodule Runnel.NikeRun do
     field :waypoints, {:array, :map}
     field :start_time, Ecto.DateTime
     field :calories, :integer
-    field :duration, Ecto.Time
+    field :duration, :string
     field :distance, :float
     field :activity_id, :string
 
@@ -25,7 +25,7 @@ defmodule Runnel.NikeRun do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:user_id, :waypoints, :start_time, :calories, :distance, :activity_id])
-    |> validate_required([:user_id, :waypoints, :start_time, :calories, :distance])
+    |> cast(params, [:user_id, :waypoints, :start_time, :duration, :calories, :distance, :activity_id])
+    |> validate_required([:user_id, :waypoints, :start_time, :duration, :calories, :distance])
   end
 end
