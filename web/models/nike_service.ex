@@ -17,13 +17,32 @@ defmodule Runnel.NikeService do
     |> save_run_data
   end
 
-
   defp fetch_latest_runs(token) do
     Logger.debug "fetch_latest_runs"
+    query = from run in Runnel.NikeRun, select: run.start_time, limit: 1, order_by: [desc: :start_time]
+    case Runnel.Repo.one(query) do
+      nil ->
+        activities = Runnel.Integrations.NikeRuns.fetch_activity_list(token, count: 20)
+        Enum.map(activities["data"], fn(activity) -> activity["activityId"] end)
+        |> MapSet.new
 
-    activities = Runnel.Integrations.NikeRuns.fetch(token)
-    Enum.map(activities["data"], fn(activity) -> activity["activityId"] end)
-    |> MapSet.new
+      %Ecto.DateTime{} = datetime ->
+        Logger.debug "fetching from #{datetime}"
+
+        start_date = datetime
+                    |> Ecto.DateTime.to_date
+                    |> Ecto.Date.to_string
+
+        end_date = :calendar.local_time
+                    |> Ecto.DateTime.from_erl
+                    |> Ecto.DateTime.to_date
+                    |> Ecto.Date.to_string
+
+        activities = Runnel.Integrations.NikeRuns.fetch_activity_list(token, count: 20, startTime: start_date, endTime: end_date)
+        Enum.map(activities["data"], fn(activity) -> activity["activityId"] end)
+        |> MapSet.new
+    end
+
   end
 
   defp fetch_local_runs do
@@ -35,7 +54,7 @@ defmodule Runnel.NikeService do
 
   defp fetch_run_data(token, run_id) do
     Logger.debug "fetch_run_data for #{run_id}"
-    run_data = Runnel.Integrations.NikeRuns.fetch(token, run_id, gps: false)
+    run_data = Runnel.Integrations.NikeRuns.fetch_activity(token, run_id, gps: false)
     gps_coordinates = fetch_run_gps_data(token, run_id, run_data["isGpsActivity"])
 
      %{
@@ -56,7 +75,7 @@ defmodule Runnel.NikeService do
   end
 
   def fetch_run_gps_data(token, run_id, true) do
-    response = Runnel.Integrations.NikeRuns.fetch(token, run_id, gps: true)
+    response = Runnel.Integrations.NikeRuns.fetch_activity(token, run_id, gps: true)
 
     case response do
       %{"error_id" => _, "errors" => _} -> []
