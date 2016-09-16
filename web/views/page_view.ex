@@ -8,6 +8,4 @@ defmodule Runnel.PageView do
     end)
     |> Enum.reverse
   end
-
-  defp group_runs_by_month([]), do: []
 end
