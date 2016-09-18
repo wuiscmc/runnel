@@ -5,6 +5,10 @@
     "deploy": "brunch build --production",
     "watch": "brunch watch --stdin"
   },
+  "engines": {
+    "node": "5.12.0",
+    "npm": "3.10.3"
+  },
   "dependencies": {
     "font-awesome": "^4.6.3",
     "lodash": "^4.15.0",
