@@ -5,4 +5,8 @@ erlang_version=19.0.2
 elixir_version=1.3.0
 
 # Always rebuild from scratch on every deploy?
-#always_rebuild=true
+<<<<<<< HEAD
+# always_rebuild=true
+=======
+always_rebuild=true
+>>>>>>> 7664338122d21293090b58c9adfde1828a58960c
