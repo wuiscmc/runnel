@@ -3,7 +3,7 @@ defmodule Runnel.PageController do
   import Ecto.Query, only: [from: 2]
 
   def index(conn, _params) do
-    query = from Runnel.NikeRun, order_by: [desc: :start_time]
+    query = from Runnel.NikeRun, order_by: [desc: :start_time], limit: 10
 
     runs = Runnel.Repo.all(query)
 

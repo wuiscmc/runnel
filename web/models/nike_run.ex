@@ -30,7 +30,7 @@ defmodule Runnel.NikeRun do
     |> unique_constraint(:activity_id)
   end
 
-  def to_string(%NikeRun{} = run) do
+  def to_string(%Runnel.NikeRun{} = run) do
     [:user_id, :start_time, :calories, :duration, :distance, :activity_id]
     |> Enum.reduce("", fn(field, string) ->
         value = (Map.fetch!(run, field)  || "nil") |> Kernel.to_string

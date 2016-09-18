@@ -1,13 +1,25 @@
-defmodule Runnel.Integrations.NikeRuns do
+defmodule Runnel.Integrations.NikeApi do
   use HTTPoison.Base
   require Logger
 
-  # GET https://api.nike.com/v1/me/sport/activities?access_token={access_token}&count=10&startDate=2012-01-01&endDate=2014-02-15
   def process_url(url) do
     Application.get_env(:runnel, Runnel.Integrations.NikeRuns)[:api_url] <> url
   end
 
+  # GET https://api.nike.com/v1/me/sport/activities?access_token={access_token}&count=10&startDate=2012-01-01&endDate=2014-02-15
   def fetch_activity_list(access_token, params \\ []) do
+    response = fetch_activity_list!(access_token, params)
+
+    has_next = case response["paging"] do
+      %{"next" => nil} -> :eol
+      %{"next" => _}   -> :more
+      _ -> :error
+    end
+
+    {has_next, response}
+  end
+
+  def fetch_activity_list!(access_token, params \\ []) do
     request("/me/sport/activities/RUNNING", access_token, params)
   end
 
@@ -27,7 +39,7 @@ defmodule Runnel.Integrations.NikeRuns do
 
     log_request(endpoint, query_params)
 
-    case get(endpoint, [], [params: query_params]) do
+    case get(endpoint, [{"Connection", "keep-alive"}], [params: query_params]) do
       {:error, _}     -> Logger.error("could not fetch data" <> endpoint)
       {:ok, response} -> response.body
     end

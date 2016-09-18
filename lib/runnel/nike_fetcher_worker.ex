@@ -21,7 +21,7 @@ defmodule Runnel.NikeFetcherWorker do
   def handle_info(:work, state) do
     credentials = Application.get_env(:runnel, Runnel.NikeFetcher)[:credentials]
     {:ok, token} = Runnel.Authenticator.login(credentials[:username], credentials[:password])
-    Runnel.NikeService.fetch_new_runs(token)
+    Runnel.NikeService.import_latest_runs(token)
 
     Logger.debug "scheduling again"
 
